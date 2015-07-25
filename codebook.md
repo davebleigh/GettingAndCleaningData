@@ -22,7 +22,7 @@ You should create one R script called run_analysis.R (this file) that does the f
 
 # Reading the Data Files
 First we will need to read in the Training and Test data sets.  Both sets of data are split into 3 files: subject, activity and features.  6 files in all.
-```
+```R
 trnSubject  <- read.table ( "UCI HAR Dataset/train/subject_train.txt", header = FALSE )
 trnActivity <- read.table ( "UCI HAR Dataset/train/y_train.txt",       header = FALSE )
 trnFeatures <- read.table ( "UCI HAR Dataset/train/X_train.txt",       header = FALSE )
@@ -33,7 +33,7 @@ tstFeatures <- read.table ( "UCI HAR Dataset/test/X_test.txt",       header = FA
 ```
 # Step 1
 Now we can perform step 1 of the course instructions, merging the testing and training data sets into 3 combined data sets for Subject, Activity and Features
-```
+```R
 cmbSubject  <- rbind ( tstSubject, trnSubject )
 cmbActivity <- rbind ( tstActivity, trnActivity )
 cmbFeatures <- rbind ( tstFeatures, trnFeatures )
