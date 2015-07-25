@@ -60,10 +60,9 @@ columnsToKeep <- c ( 1, 2, colnamesToKeep )
 
 cmbData <- cmbData[, columnsToKeep]
 
-#
-# Now we can perform Step 3 of the course instructions, replacing the activity
-# field which is 1, 2, 3 etc with "Walking", "Walking Upstairs", "Walking Downstairs" etc
-#
+# Step 3
+Now we can perform Step 3 of the course instructions, replacing the activity field which is 1, 2, 3 etc with "Walking", "Walking Upstairs", "Walking Downstairs" etc
+
 cmbData$Activity[cmbData$Activity==1] <- "Walking"
 cmbData$Activity[cmbData$Activity==2] <- "Walking Upstairs"
 cmbData$Activity[cmbData$Activity==3] <- "Walking Downstairs"
@@ -71,12 +70,9 @@ cmbData$Activity[cmbData$Activity==4] <- "Sitting"
 cmbData$Activity[cmbData$Activity==5] <- "Standing"
 cmbData$Activity[cmbData$Activity==6] <- "Laying"
 
-#
-# Now we can perform Step 4 of the course instructions, giving the combined, filtered
-# data set descriptive variable names.  I take this to mean replacing "t" with "Time" and
-# "f" with "Frequency", along with expanding "Acc" into "Accelerometer" etc.  I added
-# to the list until I was satisfied with the final set of names...
-#
+# Step 4
+Now we can perform Step 4 of the course instructions, giving the combined, filtered data set descriptive variable names.  I take this to mean replacing "t" with "Time" and "f" with "Frequency", along with expanding "Acc" into "Accelerometer" etc.  I added to the list until I was satisfied with the final set of names...
+
 names ( cmbData ) <- gsub ( "^t", "Time",      names ( cmbData ) )
 names ( cmbData ) <- gsub ( "^f", "Frequency", names ( cmbData ) )
 
@@ -97,13 +93,12 @@ names ( cmbData ) <- gsub ( "tBody", "TimeBody", names ( cmbData ) )
 
 names ( cmbData ) <- gsub ( "AccelerometerJerkMean\\)",  "AccelerometerJerkMean", names ( cmbData ) )
 
-#
-# Now we can perform Step 5 of the course instructions, creating a tidy data set
-# with the average of each variable for each activity and each subject.
-#
+# Step 5
+Now we can perform Step 5 of the course instructions, creating a tidy data set with the average of each variable for each activity and each subject.
+
 tidyData <- aggregate ( . ~ Activity + Subject, cmbData, mean )
 
-#
-# Write out the data so we can upload for marking.  The instructions requested no row mames.
-#
+# Writing the Results
+All that is left is to write out the data so we can upload for marking.  The instructions requested no row mames.
+
 write.table ( tidyData, "tidydata.txt", row.names = FALSE )
