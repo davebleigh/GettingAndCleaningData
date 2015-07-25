@@ -39,7 +39,7 @@ cmbActivity <- rbind ( tstActivity, trnActivity )
 cmbFeatures <- rbind ( tstFeatures, trnFeatures )
 ```
 Before we move on, it will make things easier if we set the columns from the description file features.txt.  We will also set names for the activity and subject data
-```
+```R
 featureColumns <- read.table("UCI HAR Dataset/features.txt")
 colnames ( cmbFeatures ) <- t( featureColumns[2] )
 
@@ -47,12 +47,12 @@ colnames ( cmbSubject )  <- "Subject"
 colnames ( cmbActivity ) <- "Activity"
 ```
 Now we can merge the data into a single data set using cbind()
-```
+```R
 cmbData <- cbind ( cmbSubject, cmbActivity, cmbFeatures )
 ```
 # Step 2
 Now we can perform Step 2 of the course instructions, trimming the data set down to just the Mean and Std Deviation columns (plus the activity and subject which are columns 1 and 2)
-```
+```R
 allColnames <- names ( cmbData )
 colnamesToKeep <- grep ( ".*mean.*|.*std.*", allColnames, ignore.case = TRUE )
 
@@ -62,7 +62,7 @@ cmbData <- cmbData[, columnsToKeep]
 ```
 # Step 3
 Now we can perform Step 3 of the course instructions, replacing the activity field which is 1, 2, 3 etc with "Walking", "Walking Upstairs", "Walking Downstairs" etc
-```
+```R
 cmbData$Activity[cmbData$Activity==1] <- "Walking"
 cmbData$Activity[cmbData$Activity==2] <- "Walking Upstairs"
 cmbData$Activity[cmbData$Activity==3] <- "Walking Downstairs"
@@ -72,7 +72,7 @@ cmbData$Activity[cmbData$Activity==6] <- "Laying"
 ```
 # Step 4
 Now we can perform Step 4 of the course instructions, giving the combined, filtered data set descriptive variable names.  I take this to mean replacing "t" with "Time" and "f" with "Frequency", along with expanding "Acc" into "Accelerometer" etc.  I added to the list until I was satisfied with the final set of names...
-```
+```R
 names ( cmbData ) <- gsub ( "^t", "Time",      names ( cmbData ) )
 names ( cmbData ) <- gsub ( "^f", "Frequency", names ( cmbData ) )
 
@@ -95,11 +95,11 @@ names ( cmbData ) <- gsub ( "AccelerometerJerkMean\\)",  "AccelerometerJerkMean"
 ```
 # Step 5
 Now we can perform Step 5 of the course instructions, creating a tidy data set with the average of each variable for each activity and each subject.
-```
+```R
 tidyData <- aggregate ( . ~ Activity + Subject, cmbData, mean )
 ```
 # Writing the Results
 All that is left is to write out the data so we can upload for marking.  The instructions requested no row mames.
-```
+```R
 write.table ( tidyData, "tidydata.txt", row.names = FALSE )
 ```
