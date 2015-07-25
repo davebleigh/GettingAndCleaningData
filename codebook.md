@@ -22,7 +22,7 @@ You should create one R script called run_analysis.R (this file) that does the f
 
 # Reading the Data Files
 First we will need to read in the Training and Test data sets.  Both sets of data are split into 3 files: subject, activity and features.  6 files in all.
-
+```
 trnSubject  <- read.table ( "UCI HAR Dataset/train/subject_train.txt", header = FALSE )
 trnActivity <- read.table ( "UCI HAR Dataset/train/y_train.txt",       header = FALSE )
 trnFeatures <- read.table ( "UCI HAR Dataset/train/X_train.txt",       header = FALSE )
@@ -30,36 +30,36 @@ trnFeatures <- read.table ( "UCI HAR Dataset/train/X_train.txt",       header = 
 tstSubject  <- read.table ( "UCI HAR Dataset/test/subject_test.txt", header = FALSE )
 tstActivity <- read.table ( "UCI HAR Dataset/test/y_test.txt",       header = FALSE )
 tstFeatures <- read.table ( "UCI HAR Dataset/test/X_test.txt",       header = FALSE )
-
+```
 # Step 1
 Now we can perform step 1 of the course instructions, merging the testing and training data sets into 3 combined data sets for Subject, Activity and Features
-
+```
 cmbSubject  <- rbind ( tstSubject, trnSubject )
 cmbActivity <- rbind ( tstActivity, trnActivity )
 cmbFeatures <- rbind ( tstFeatures, trnFeatures )
-
+```
 Before we move on, it will make things easier if we set the columns from the description file features.txt.  We will also set names for the activity and subject data
-
+```
 featureColumns <- read.table("UCI HAR Dataset/features.txt")
 colnames ( cmbFeatures ) <- t( featureColumns[2] )
 
 colnames ( cmbSubject )  <- "Subject"
 colnames ( cmbActivity ) <- "Activity"
-
+```
 Now we can merge the data into a single data set using cbind()
-
+```
 cmbData <- cbind ( cmbSubject, cmbActivity, cmbFeatures )
-
+```
 # Step 2
 Now we can perform Step 2 of the course instructions, trimming the data set down to just the Mean and Std Deviation columns (plus the activity and subject)
-
+```
 allColnames <- names ( cmbData )
 colnamesToKeep <- grep ( ".*mean.*|.*std.*", allColnames, ignore.case = TRUE )
 
 columnsToKeep <- c ( 1, 2, colnamesToKeep )
 
 cmbData <- cmbData[, columnsToKeep]
-
+```
 # Step 3
 Now we can perform Step 3 of the course instructions, replacing the activity field which is 1, 2, 3 etc with "Walking", "Walking Upstairs", "Walking Downstairs" etc
 
