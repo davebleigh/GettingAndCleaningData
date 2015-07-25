@@ -1,2 +1,2 @@
 # GettingAndCleaningData
-Coursera Course Getting and Cleaning Data Project Files
+This repository contains the files for the Coursera Course "Getting and Cleaning Data" Week 4 Project Files
